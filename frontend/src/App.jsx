@@ -1,21 +1,31 @@
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 
-export default function App() {
-  const [msg,setMsg]=useState("");
-  const [out,setOut]=useState("");
+function App() {
+  const [status, setStatus] = useState("Connecting to Friday-AI Backend...");
 
-  const send=()=>{
-    const ws=new WebSocket("ws://localhost:8080/ws");
-    ws.onopen=()=>ws.send(msg);
-    ws.onmessage=e=>setOut(p=>p+e.data);
-  };
+  useEffect(() => {
+    // Async fetch to backend API
+    const fetchStatus = async () => {
+      try {
+        const response = await fetch('/api/status');
+        const data = await response.json();
+        setStatus(data.message || "System Online");
+      } catch (err) {
+        setStatus("Backend Offline (Check Connection)");
+      }
+    };
+    fetchStatus();
+  }, []);
 
   return (
-    <div>
-      <h1>Friday AI</h1>
-      <input onChange={e=>setMsg(e.target.value)} />
-      <button onClick={send}>Send</button>
-      <pre>{out}</pre>
+    <div style={{ background: '#0d1117', color: '#58a6ff', height: '100vh', padding: '40px', textAlign: 'center', fontFamily: 'monospace' }}>
+      <h1>FRIDAY-AI INTERFACE</h1>
+      <hr style={{ borderColor: '#30363d' }} />
+      <div style={{ marginTop: '20px', padding: '20px', border: '1px solid #30363d', borderRadius: '8px' }}>
+        <p>SYSTEM STATUS: <span style={{ color: '#3fb950' }}>{status}</span></p>
+      </div>
     </div>
   );
 }
+
+export default App;
