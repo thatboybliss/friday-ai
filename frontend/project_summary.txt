@@ -1,0 +1,52 @@
+Project Analysis - Fri Mar 20 17:22:36 CDT 2026
+------------------------------
+FILE: ./src/App.jsx
+import { useState } from "react";
+
+export default function App() {
+  const [msg,setMsg]=useState("");
+  const [out,setOut]=useState("");
+
+  const send=()=>{
+    const ws=new WebSocket("ws://localhost:8080/ws");
+    ws.onopen=()=>ws.send(msg);
+    ws.onmessage=e=>setOut(p=>p+e.data);
+  };
+
+  return (
+    <div>
+      <h1>Friday AI</h1>
+      <input onChange={e=>setMsg(e.target.value)} />
+      <button onClick={send}>Send</button>
+      <pre>{out}</pre>
+    </div>
+  );
+}
+
+
+
+FILE: ./package.json
+{
+  "name": "friday-ui",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^8.0.1"
+  }
+}
+
+
+
