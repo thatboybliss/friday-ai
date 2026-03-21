@@ -1,12 +1,23 @@
 package main
 
 import (
-"github.com/gin-gonic/gin"
-"friday/websocket"
+	"log"
+	"net/http"
+
+	"friday/websocket"
 )
 
 func main() {
-r := gin.Default()
-websocket.RegisterWS(r)
-r.Run(":8080")
+	mux := http.NewServeMux()
+	websocket.RegisterRoutes(mux)
+
+	server := &http.Server{
+		Addr:    ":8080",
+		Handler: mux,
+	}
+
+	log.Println("Friday AI backend listening on http://localhost:8080")
+	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		log.Fatal(err)
+	}
 }
