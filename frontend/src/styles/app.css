@@ -1,0 +1,67 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #080f1f; color: #f1f3ff; }
+
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.panel,
+.board,
+.recorder,
+.actions {
+  background: #0f1b37;
+  border: 1px solid #263869;
+  border-radius: 14px;
+}
+
+.panel { padding: 1rem; }
+.panel h1 { margin: 0; }
+.sub { margin: 0.3rem 0 0.8rem; color: #a8b6e8; }
+.mode-btn { width: 100%; padding: 0.6rem; border: 0; border-radius: 10px; background: #3a57f7; color: #fff; font-weight: 700; }
+.stats { margin-top: 0.8rem; display: grid; gap: 0.4rem; }
+.stats p { margin: 0; background: #15264b; padding: 0.45rem 0.6rem; border-radius: 8px; }
+.narration, .feedback { margin-top: 0.85rem; color: #ced8ff; }
+
+.play-area { display: grid; gap: 1rem; }
+.board { padding: 1rem; }
+.board-head { display: flex; justify-content: space-between; gap: 1rem; align-items: center; }
+.chip { background: #203a80; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.82rem; }
+.ar-clue { margin: 0; color: #9fd0ff; font-size: 0.85rem; }
+
+.option-grid { margin-top: 0.9rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; }
+.option { border: 1px solid #35519a; border-radius: 10px; background: #16264d; color: inherit; padding: 0.75rem; text-align: left; }
+.option.active { border-color: #87a5ff; background: #274184; }
+
+.actions { padding: 0.8rem; display: flex; gap: 0.6rem; }
+.actions button,
+.recorder button {
+  border: 0;
+  background: #3f5bfc;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  font-weight: 700;
+}
+
+.actions button:disabled,
+.option:disabled { opacity: 0.5; }
+
+.recorder { padding: 1rem; }
+.recorder h3 { margin-top: 0; }
+.recorder-actions { display: flex; gap: 0.6rem; }
+.clip-preview { margin-top: 0.7rem; width: min(360px, 100%); border-radius: 10px; }
+.error { color: #ff9ea5; }
+
+@media (max-width: 920px) {
+  .layout { grid-template-columns: 1fr; }
+  .option-grid { grid-template-columns: 1fr; }
+}
